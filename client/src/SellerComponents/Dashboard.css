@@ -1,0 +1,40 @@
+.chart-layout{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+
+.chart{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.chart h1{
+    color: #3d3d3d;
+}
+.graph{
+    min-width: 80%;
+    min-height: 30vh;
+}
+
+.transaction{
+    padding: 20px;
+    border-radius: 10px;
+    background: gray;
+    width: 30%;
+    color: #fff;
+    height: 30vh;
+}
+.comments{
+    padding: 20px;
+    border-radius: 10px;
+    background: gray;
+    color: #fff;
+    width: 100%;
+    height: 30vh;
+}

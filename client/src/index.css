@@ -1,0 +1,49 @@
+:root{
+  background: whitesmoke;
+  color: #000;
+  box-sizing: border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+*{
+  margin:0;
+  padding: 0;
+}
+input{
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+button{
+  border-radius: 5px;
+  padding: 8px;
+  background-color:#1d1d25;
+  color: #fff;
+  border: none;
+}
+button:hover{
+  background: #ea2340;
+}
+label{
+  text-transform: capitalize;
+  font-weight: bold;
+  color: rgb(37, 37, 37);
+  padding: 5px 0;
+}
+textarea{
+  padding: 5px;
+}
+h1{
+  text-transform: capitalize;
+  color: rgb(88, 88, 88);
+}
+h3{
+  color: rgb(87, 86, 86);
+}
+input{
+  border: 1px black solid;
+  padding: 8px;
+  width: 50%;
+}
+a{
+  text-decoration: none;
+}

@@ -1,0 +1,154 @@
+.logo{
+    width: 50px;
+}
+/* LandingPage.css */
+.app{
+  background: whitesmoke;
+  z-index: 1;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .landing-page {
+    background-color: whitesmoke;
+    color: #000000;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    
+  }
+  
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav li {
+    margin: 0 15px;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: #000000;
+  }
+  .nav a:hover{
+    color: red;
+  }
+
+  .hero {
+    display: flex;
+    justify-content: space-around;
+    height: 60vh;
+    width: 78%;
+    margin: auto;
+    gap: 10%;
+    align-items: center;
+  }
+  .hero-text {
+    max-width: 50%;
+  }
+  
+  .hero-text h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  .hero-text p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+.benefits-ul{
+  line-height: 1.5em;
+  font-weight: 600;
+  list-style: square ;
+}
+  .hero-buttons button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #141414;
+    border: none;
+    color: #ecf0f1;
+    cursor: pointer;
+
+  }
+  
+  .hero-buttons button:hover {
+    background-color: #ea2340;
+  }
+  
+  .wrap-section2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .hero-placeholder {
+    width: 50%;
+    height: 100%;
+    background: url('./assets/2024080111143211.png') no-repeat;
+    background-size: contain;
+  }
+  
+  .features, .benefits, .information {
+    padding: 50px 20px;
+  }
+  
+  .features h2, .benefits h2, .information h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .feature-item {
+    padding: 3em;
+    margin: 10px 0;
+    background-color: #e9e9e9;
+    border-radius: 10px;
+    box-shadow: 3px 4px 6px  rgb(167, 166, 166);
+  }
+  .feature-item p{
+    font-weight: 500;
+  }
+  .feature-item:hover{
+    transform: scale(1.2);
+   
+  }
+  .benefits button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color:  #141414;
+    border: none;
+    color: #ecf0f1;
+    cursor: pointer;
+  }
+  #section2-home{
+    max-width: 78%;
+    margin: auto;
+  }
+
+  
+  .information p {
+    max-width: 600px;
+    font-size: 1.2em;
+  }
+  @media (max-width:1200px) {
+    .hero{
+      justify-content: space-between;
+    }
+  }
+  

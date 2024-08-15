@@ -1,0 +1,1 @@
+fullname phone_number:integer address:text bank_name account_number:integer bank_code:integer currency
