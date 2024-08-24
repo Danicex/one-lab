@@ -3,8 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../Auth/AuthContext';
 import './ProfileStyles.css';
+import Select from 'react-select';
+import countryList from 'react-select-country-list';
 
 export default function CreateProfile() {
+  const [countryValue, setCountryValue] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const options = countryList().getData();
+  const [bannerImage, setBannerImage] = useState(null);
+  const [image, setImage] = useState(null);
   const [profile, setProfile] = useState({
     fullname: '',
     phoneNumber: '',
@@ -15,13 +22,14 @@ export default function CreateProfile() {
     currency: '',
     storeName: '',
     description: '',
+    website: '',
+    social: '',
   });
-  const [banner, setBanner] = useState(null);
-  const [previewImg, setPreviewImg] = useState(null)
+  const [previewImg, setPreviewImg] = useState(null);
+  const [previewBanner, setPreviewBanner] = useState(null);
 
   const navigate = useNavigate();
   const { sellerId } = useContext(AuthContext);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,14 +37,36 @@ export default function CreateProfile() {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0]
-
-    setBanner(file);
+    const file = e.target.files[0];
+    setImage(file);
     if (file) {
-      const imageUrl = URL.createObjectURL(file)
-      setPreviewImg(imageUrl)
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewImg(imageUrl);
     } else {
-      setPreviewImg(null)
+      setPreviewImg(null);
+    }
+  };
+
+  const handleBannerChange = (e) => {
+    const file = e.target.files[0];
+    setBannerImage(file);
+    if (file) {
+      const bannerUrl = URL.createObjectURL(file);
+      setPreviewBanner(bannerUrl);
+    } else {
+      setPreviewBanner(null);
+    }
+  };
+
+  const moveToNext = () => {
+    if (currentPage < 3) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const moveToPrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -51,8 +81,16 @@ export default function CreateProfile() {
     formData.append('profile[currency]', profile.currency);
     formData.append('profile[store_name]', profile.storeName);
     formData.append('profile[description]', profile.description);
-    formData.append('profile[image]', banner);
+    formData.append('profile[country]', countryValue ? countryValue.label : '');
+    formData.append('profile[social]', profile.social);
+    formData.append('profile[website]', profile.website);
     formData.append('profile[seller_id]', sellerId);
+    if (image) {
+      formData.append('profile[image]', image);
+    }
+    if (bannerImage) {
+      formData.append('profile[banner]', bannerImage);
+    }
 
     axios.post(`http://localhost:3000/sellers/${sellerId}/profile`, formData, {
       headers: {
@@ -66,71 +104,118 @@ export default function CreateProfile() {
       .catch(err => console.log(err));
   };
 
+  const handleCountryChange = (selectedOption) => {
+    setCountryValue(selectedOption);
+  };
+
   return (
-    <div className="profile-layout">
-      <div className="auth-side-img"></div>
+    <div className="profile-layout2">
+      <div className="auth-side-img2"></div>
       <section className="profile-form-section">
         <h1 className="form-title">Create Your Store Profile</h1>
-        {previewImg && (
-          <img src={previewImg} className="profile-preview-img" alt="Profile Preview" />
+        
+        <div className="profile-form-group2">
+          <div className="profile-form-column">
+            {currentPage === 1 && (
+              <>
+              {previewImg && (
+          <img src={previewImg} style={{ width: '100px', height: '100px' }} alt="Profile Preview" />
         )}
-
-        <div className="profile-form-group">
-          <div className="profile-form-column">
-            <label className="form-label">
-              <p>Add Banner Image</p>
-              <input type="file" onChange={handleFileChange} id='img-space' className="file-input" />
-            </label>
-            <label className="form-label">
-              <p>Store Name</p>
-              <input type="text" name="storeName" value={profile.storeName} onChange={handleChange} placeholder='Store Name' className="text-input" />
-            </label>
-            <label className="form-label">
-              <p>Phone Number</p>
-              <input type="tel" name="phoneNumber" value={profile.phoneNumber} onChange={handleChange} placeholder='Phone Number' className="text-input" />
-            </label>
-            <label className="form-label">
-              <p>Address</p>
-              <input type="text" name="address" value={profile.address} onChange={handleChange} placeholder='Address' className="text-input" />
-            </label>
-            <label className="form-label">
-              <p>Description</p>
-              <textarea name="description" id="description" placeholder='For example: we sell rare and authentic wears' rows={10} value={profile.description} onChange={handleChange} className="textarea-input"></textarea>
-            </label>
-          </div>
-          <div className="profile-form-column">
-            <h3 className="form-subtitle">Enter Your Banking Details for Business Transaction</h3>
-            <label className="form-label">
-              <p>Bank Name</p>
-              <input type="text" name="bankName" value={profile.bankName} onChange={handleChange} placeholder='Bank Name' className="text-input" />
-            </label>
-            <label className="form-label">
-              <p>Account Name</p>
-              <input type="text" name="fullname" value={profile.fullname} onChange={handleChange} placeholder='Account Name' className="text-input" />
-            </label>
-            <label className="form-label">
-              <p>Bank Code</p>
-              <input type="number" name="bankCode" value={profile.bankCode} onChange={handleChange} placeholder='Bank Code' className="text-input" />
-            </label>
-            <label className="form-label">
-              <p>Account Number</p>
-              <input type="number" name="accountNumber" value={profile.accountNumber} onChange={handleChange} placeholder='Account Number' className="text-input" />
-            </label>
-            <label className="form-label">
-              <p>Currency</p>
-              <input type="text" name="currency" value={profile.currency} onChange={handleChange} list='currency' placeholder='Currency' className="text-input" />
-              <datalist id='currency'>
-                <option value="NGN" />
-                <option value="USD" />
-                <option value="YEN" />
-              </datalist>
-            </label>
-            <button onClick={handleSubmit} className="submit-btn">Submit</button>
+        {previewBanner && (
+          <img src={previewBanner} alt="Banner Preview" style={{ width: '100px', height: '100px' }} />
+        )}
+                <label className="form-label2">
+                  <p>Add Profile Image</p>
+                  <input type="file" onChange={handleFileChange} id='img-space' className="file-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Add Banner Image</p>
+                  <input type="file" onChange={handleBannerChange} id='banner-space' className="file-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Store Name</p>
+                  <input type="text" name="storeName" value={profile.storeName} onChange={handleChange} placeholder='Store Name' className="text-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Phone Number</p>
+                  <input type="tel" name="phoneNumber" value={profile.phoneNumber} onChange={handleChange} placeholder='Phone Number' className="text-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Address</p>
+                  <input type="text" name="address" value={profile.address} onChange={handleChange} placeholder='Address' className="text-input" />
+                </label>
+                <button onClick={moveToNext}>Next</button>
+              </>
+            )}
+            {currentPage === 2 && (
+              <>
+                <label htmlFor="country">
+                  <p>Country</p>
+                  <Select
+                    options={options}
+                    value={countryValue}
+                    onChange={handleCountryChange}
+                    placeholder="Select a country"
+                    id='country-list'
+                  />
+                </label>
+                <label htmlFor="website">
+                  <p>Website Link</p>
+                  <input type="text" name="website" value={profile.website} onChange={handleChange} placeholder='http://example.com' /> <br />
+                  <small style={{ textAlign: 'end' }}>If you don't have a website, you can create one <a href="">here</a></small>
+                </label>
+                <label htmlFor="social">
+                  <p>Social Media Link</p>
+                  <input type="text" name="social" value={profile.social} onChange={handleChange} placeholder='@johndoe/facebook.com' />
+                </label>
+                <label className="form-label2">
+                  <p>Description</p>
+                  <textarea name="description" id="description" placeholder='For example: we sell rare and authentic wears' rows={10} value={profile.description} onChange={handleChange} className="textarea-input"></textarea>
+                </label>
+                <div className="btn-next">
+                <button onClick={moveToPrev}>Prev</button>
+                <button onClick={moveToNext}>Next</button>
+                </div>
+              </>
+            )}
+            {currentPage === 3 && (
+              <>
+                <h3 className="form-subtitle">Enter Your Banking Details for Business Transaction</h3>
+                <label className="form-label2">
+                  <p>Bank Name</p>
+                  <input type="text" name="bankName" value={profile.bankName} onChange={handleChange} placeholder='Bank Name' className="text-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Account Name</p>
+                  <input type="text" name="fullname" value={profile.fullname} onChange={handleChange} placeholder='Account Name' className="text-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Bank Code</p>
+                  <input type="number" name="bankCode" value={profile.bankCode} onChange={handleChange} placeholder='Bank Code' className="text-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Account Number</p>
+                  <input type="number" name="accountNumber" value={profile.accountNumber} onChange={handleChange} placeholder='Account Number' className="text-input" />
+                </label>
+                <label className="form-label2">
+                  <p>Currency</p>
+                  <input type="text" name="currency" value={profile.currency} onChange={handleChange} list='currency' placeholder='Currency' className="text-input" />
+                  <datalist id='currency'>
+                    <option value="NGN" />
+                    <option value="USD" />
+                    <option value="YEN" />
+                  </datalist>
+                </label>
+                <div className="btn-next">
+                <button onClick={moveToPrev}>Prev</button>
+                <button onClick={handleSubmit} className="submit-btn2">Submit</button>
+                </div>
+                
+              </>
+            )}
           </div>
         </div>
       </section>
     </div>
-
-
   );
 }

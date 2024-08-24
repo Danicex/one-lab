@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import logo from  './assets/417284f8-4190-4100-b644-290850ea0742.png'
 import './App.css';
-import hero from  './assets/2024080111143211.png'
+import { FaToggleOn, FaToggleOff } from "react-icons/fa";
+import { AuthContext } from './Auth/AuthContext';
+
 
 export default function LandingPage() {
+const {theme, setTheme} = useContext(AuthContext)
+
+const toggleTheme = () => {
+  setTheme(theme === 'light' ? 'dark' : 'light');
+};
   return (
     <div className="landing-page">
     <header className="header">
       <img className="logo" src={logo}/>
       <nav className="nav">
+      {theme === 'light' ? (<FaToggleOff id='theme-icon' onClick={toggleTheme}/>) : (<FaToggleOn onClick={toggleTheme} id='theme-icon'/>)}
         <ul>
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>

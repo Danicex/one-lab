@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import './ProfileStyles.css'
 import ViewProfile from './ViewProfile'
@@ -14,13 +14,20 @@ import { FaHouse } from "react-icons/fa6";
 import { SiGoogleanalytics } from "react-icons/si";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
+import { FaToggleOn, FaToggleOff } from "react-icons/fa";
+import { AuthContext } from '../Auth/AuthContext';
 
 export default function DashBoard() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpen2, setIsOpen2] = useState(false)
   const [isOpen3, setIsOpen3] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
-  const [active, setActive] = useState(null)
+  const [active, setActive] = useState(null);
+  const { theme, setTheme } = useContext(AuthContext)
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
 
   const toggleMenu = () => {
@@ -45,7 +52,7 @@ export default function DashBoard() {
       case 'component6': return <Transactions />;
       case 'component7': return <Analysis />;
       case 'component8': return <Home />;
-      default: return <Home/>;
+      default: return <Home />;
 
     }
   }
@@ -57,12 +64,21 @@ export default function DashBoard() {
         <div className={isOpen1 ? `navigation-opened` : `navigation-closed`}>
 
           <div className='nav1'>
-            <img src={logo} alt="" className="logo1" onClick={toggleMenu1} />
+            <div className="m">
 
+            <img src={logo} alt="" className="logo1" onClick={toggleMenu1} />
+            <h3>onelab</h3>
+            </div>
+
+
+        
+            <div className="darktheme-container">
+              {theme === 'light' ? (<FaToggleOff id='theme-icon1' onClick={toggleTheme} />) : (<FaToggleOn onClick={toggleTheme} id='theme-icon1' />)}
+            </div>
 
             <ul className='un-ordered'>
-
               <div className="nav-wrap" onClick={toggleMenu} >
+
                 <FaHouse id='icons1' />
                 {isOpen1 && (<div>
                   <p> Home ▼</p>
@@ -71,7 +87,9 @@ export default function DashBoard() {
               </div>
 
               {isOpen && (
+
                 <div className="first-nav">
+
                   <li><p onClick={() => setActive('component8')}>dashboard</p></li>
                   <li><p onClick={() => setActive('component1')}>view profile</p>
                   </li>

@@ -5,10 +5,10 @@ import axios from 'axios';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    // Check buyer and seller authenticity
+    const [theme, setTheme] = useState(()=> localStorage.getItem('theme') || 'light');
     const [isAuthenticatedBuyer, setIsAuthenticatedBuyer] = useState(!!localStorage.getItem('buyer'));
     const [isAuthenticatedSeller, setIsAuthenticatedSeller] = useState(!!localStorage.getItem('seller'));
-    // Client data
+   
     const [seller, setSeller] = useState(localStorage.getItem('seller_data') || null);
     const [buyer, setBuyer] = useState(localStorage.getItem('buyer_data') || null);
     const [buyerId, setBuyerId] = useState(localStorage.getItem('buyer_id') || null);
@@ -21,7 +21,11 @@ const AuthProvider = ({ children }) => {
     )
     const navigate = useNavigate();
 
-    // Use useEffect to check if data is stored in localStorage 
+    useEffect(()=>{
+        localStorage.setItem('theme',  theme);
+        document.body.className = theme
+    }, [theme]);
+
     useEffect(() => {
         const storedBuyer = localStorage.getItem('buyer');
         const storedSeller = localStorage.getItem('seller');
@@ -179,7 +183,9 @@ const AuthProvider = ({ children }) => {
             buyerId,
             seller,
             sellerEmail,
-            buyerEmail
+            buyerEmail,
+            theme,
+            setTheme
         }}>
             {children}
         </AuthContext.Provider>

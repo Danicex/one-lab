@@ -69,12 +69,19 @@ export default function ViewProducts() {
             <h4>{data.quantity} left</h4>
             <p>{new Date(data.created_at).toLocaleDateString()}</p>
             <p>{data.description}</p>
-          </div>
 
           <div className="cong">
-            <CiEdit className='icon-e' onClick={() => handleEdit(data.id)} /><br />
-            <MdDeleteForever style={{ color: 'red' }} onClick={() => handleDelete(data.id)} className='icon-e' />
+            <div className="i" >
+
+            <CiEdit className='icon-e' onClick={() => handleEdit(data.id)} /> <p>Edit</p>
+            </div>
+
+            <div className="i" >
+            <MdDeleteForever style={{ color: 'red' }} onClick={() => handleDelete(data.id)} className='icon-e' /> <p>Delete</p>
+            </div>
           </div>
+          </div>
+
         </div>
       ))}
     </div>

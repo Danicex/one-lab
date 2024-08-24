@@ -20,6 +20,7 @@ import UserProfileAuth from './Auth/UserProfileAuth';
 import UpdateUserProfile from './BuyerComponents/UpdateUserProfile';
 import SellerProfile from './BuyerComponents/SellerProfile';
 import BuyerTransaction from './BuyerComponents/BuyerTransaction';
+import BuyerComments from './SellerComponents/BuyerComments';
 
 
 
@@ -46,7 +47,9 @@ function App() {
           <Route path='/store' element={<ProtectedRoute><Store/></ProtectedRoute>}/>
           <Route path='/update_user_profile' element={<ProtectedRoute><UpdateUserProfile/></ProtectedRoute>}/>
           <Route path='/update_product' element={<ProtectedRoute><EditProduct/></ProtectedRoute>}/>
+
           <Route path='/buyer_transaction' element={<ProtectedRoute><BuyerTransaction/></ProtectedRoute>}/>
+          <Route path='/comments' element={<ProtectedRoute><BuyerComments/></ProtectedRoute>}/>
          
           
           

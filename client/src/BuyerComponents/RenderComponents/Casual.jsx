@@ -9,11 +9,9 @@ export default function Casual() {
   const  navigate =  useNavigate()
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products`,
-      {params: {category:'casual_wear'} }
-    )
+    axios.get(`http://localhost:3000/products/category?category=casual_wear`)
     .then(res => {
-      setProductData3(res.data.products)
+      setProductData3(res.data)
     }).catch(err => {
       console.log(err)
     })

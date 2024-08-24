@@ -17,6 +17,9 @@
   flex-direction: column;
   gap: 20px;
 }
+.pay-btn{
+  border: 1px #ea2340 solid;
+}
 .transaction-card{
   padding: 10px;
   display: flex;
@@ -55,8 +58,14 @@ padding: 10px 0;
     padding: 3px 5px;
     border-radius: 8px;
 }
+.menu-light{
+  color: #000000;
+}
+.menu-dark{
+  color: rgb(255, 255, 255);
+}
 .category-select:hover{
-background: #e2e2e2;
+background: #e2e2e223;
 }
 
 .test{
@@ -76,11 +85,11 @@ background: #e2e2e2;
     flex-direction: column;
     align-items: center;
     gap: 10%;
-    background: #1d1d25;
-    color: #fff;
-    text-align: center;
     justify-content: space-around;
     animation: movenav 5s ease forwards;
+    background: linear-gradient(135deg, rgba(24, 3, 212, 0.082), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 .product-data-wrap{
     width: 100%;
@@ -149,7 +158,6 @@ ul li:hover{
     padding: 10px 20px;
     margin: 5px;
     border: none;
-    background: none;
     cursor: pointer;
     font-size: 16px;
     position: relative;
@@ -199,11 +207,11 @@ ul li:hover{
   }
   
   .product-card1 {
-    background: #e2e2e2a6;
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    background: #6464641f;
   }
   
   .product-card1:hover {
@@ -222,12 +230,11 @@ ul li:hover{
     display:flex;
     align-items: center;
     justify-content: space-between;
-    background: #f0f0f0;
     border-radius: 0  0 10px 10px ;
   }
   .view-product-details{
     width: 50%;
-    background: #fff;
+    
     padding: 0 20px ;
     display: flex;
     flex-direction: column;
@@ -238,13 +245,16 @@ ul li:hover{
     flex-direction: column;
     gap: 10px;
   }
+  .special-text{
+   
+  }
   .y{
     display: flex;
     gap: 10px;
     align-items: center;
-    color: #fff;
   }
   .y:hover .icon-w{
+    color: #fff;
     animation: bounce 0.6s ease-out;
     }
     .icon-w{
@@ -272,15 +282,12 @@ ul li:hover{
     display: flex;
     height: 100vh;
     width: 100%;
-    background-color: #fff;
   }
   .payment-btn{
-    background: #fff;
-    color: black;
 
   }
   .payment-btn:hover{
-    color: #fff;
+
   }
   .seller-profile{
     display: flex;
@@ -299,8 +306,8 @@ ul li:hover{
   color: #ea2340;
   }
   .glass{
-    background-color: #1d1d25;
-    color: #fff;
+
+    
     padding: 20px;
     display: flex;
    flex-direction: column;
@@ -310,10 +317,10 @@ ul li:hover{
    border-radius: 20px 0 0 20px;
   }
   .glass h1{
-    color: #fff;
+    
   }
   .glass h3{
-    color: whitesmoke;
+    
     margin: 0 0 10px 0;
   }
   .detail-img{
@@ -335,22 +342,15 @@ ul li:hover{
   .card-section h4 {
     margin: 10px 0;
     font-size: 18px;
-    color: #333;
+
   }
   
   .card-section h5 {
     margin: 0;
     font-size: 16px;
-    color: #666;
+   
   }
 
-  .swiper-button-next {
-    color: #ff5733; 
-  }
-  
-  .swiper-button-prev {
-    color: #ff5733; 
-  }
   
   /* Responsive styles */
   @media (min-width: 600px) {

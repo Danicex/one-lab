@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :inboxes
+
+  resources :comments do
+    collection do
+      get 'by_seller/:seller_id', to: 'comments#by_seller', as: 'by_seller'
+    end
+
+  end
+
   resources :transactions do
     collection do
       get 'by_seller/:seller_id', to: 'transactions#by_seller'
@@ -7,7 +16,15 @@ Rails.application.routes.draw do
 
   end
 
-  resources :products
+  resources :products do
+    collection do
+      get :store
+      get :category
+      get :search
+    end
+    resources :transactions
+  end
+
   devise_for :sellers
   devise_for :users
   

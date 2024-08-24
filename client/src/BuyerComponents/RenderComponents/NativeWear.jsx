@@ -8,11 +8,9 @@ export default function Native() {
   const  navigate =  useNavigate()
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products`,
-      {params: {category:'native_wear'} }
-    )
+    axios.get(`http://localhost:3000/products/category=native_wear`)
     .then(res => {
-      setProductData6(res.data.products)
+      setProductData6(res.data)
     }).catch(err => {
       console.log(err)
     })

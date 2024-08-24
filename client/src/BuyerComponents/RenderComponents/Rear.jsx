@@ -8,11 +8,9 @@ export default function Rear() {
   const  navigate =  useNavigate()
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products`,
-      {params: {category:'rear_fasion'} }
-    )
+    axios.get(`http://localhost:3000/products/category?category=rear_fasion`)
     .then(res => {
-      setProductData7(res.data.products)
+      setProductData7(res.data)
     }).catch(err => {
       console.log(err)
     })

@@ -8,11 +8,9 @@ export default function Formal() {
   const  navigate =  useNavigate()
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products`,
-      {params: {category:'formal_wear'} }
-    )
+    axios.get(`http://localhost:3000/products/category?category=formal_wear`)
     .then(res => {
-      setProductData4(res.data.products)
+      setProductData4(res.data)
     }).catch(err => {
       console.log(err)
     })

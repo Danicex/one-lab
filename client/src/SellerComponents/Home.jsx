@@ -1,7 +1,10 @@
-import React,{useContext} from 'react'
+import React, { useContext } from 'react'
 import './Dashboard.css'
 import { AuthContext } from '../Auth/AuthContext';
-import {Line} from  'react-chartjs-2'
+import axios from 'axios';
+import { Line } from 'react-chartjs-2';
+import BuyerComments from './BuyerComments';
+import { Link } from 'react-router-dom';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,9 +17,9 @@ import {
 } from 'chart.js';
 
 export default function Home() {
-  const { sellerEmail, sellerId } = useContext(AuthContext);
+  const { sellerEmail} = useContext(AuthContext);
 
-    ChartJS.register(
+  ChartJS.register(
     CategoryScale,
     LinearScale,
     PointElement,
@@ -25,6 +28,8 @@ export default function Home() {
     Tooltip,
     Legend
   );
+
+
   const data = {
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     datasets: [
@@ -35,7 +40,7 @@ export default function Home() {
         borderWidth: 2,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
         hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [65, 59, 80, 81, 56, 55, 40], 
+        data: [65, 59, 80, 81, 56, 55, 40],
       },
       {
         label: 'Monthly Sales',
@@ -44,21 +49,22 @@ export default function Home() {
         borderWidth: 2,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
         hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [25, 20, 89, 81, 56, 80, 60], 
+        data: [25, 20, 89, 81, 56, 80, 60],
       },
     ],
   };
+
 
   const options = {
     scales: {
       x: {
         grid: {
-          color: '#222222', 
+          color: '#222222',
         },
       },
       y: {
         grid: {
-          color: '#222222', 
+          color: '#222222',
         },
       },
     },
@@ -66,25 +72,33 @@ export default function Home() {
   return (
     <div className='chart-layout'>
       <div className="dashboard-header">
-      <h1>Dashboard</h1>
-      <br />
-      <h4>welcome   {sellerEmail}</h4>
+        <h1>Dashboard</h1>
+        <br />
+        <h4>welcome   {sellerEmail}</h4>
       </div>
       <br />
-     <div className="chart">
+      <div className="chart">
 
-      <div className="graph" styles={{ width: '80%', height: '30vh', margin: '0 auto' }}>
-        <h3>Graph data for sales</h3>
-      <Line data={data} options={options} className='line-chart-data'  width={200} height={100}/>
-      </div>
+        <div className="graph" styles={{ width: '100%', height: '30vh', margin: '0 auto' }}>
+          <h4>Graph data for sales</h4>
+          <Line data={data} options={options} className='line-chart-data' width={200} height={100} />
+        </div>
 
-      <div className="transaction">
-    <h1>transaction list</h1>
+        <div className="transaction">
+          <h1>transaction list</h1>
+        </div>
+        <div className="z">
+        <h2>Buyer Comments</h2>
+        <br />
+        <div className="comments">
+          <BuyerComments/>
+          <Link to={'/comments'} className='navigate-comment'>
+          <button >—→</button>
+          </Link>
+        </div>
+        </div>
+
       </div>
-      <div className="comments">
-    <h1>comments from buyers</h1>
-      </div>
-     </div>
     </div>
   )
 }

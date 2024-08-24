@@ -15,7 +15,11 @@
     background-position: center;
     height: 100%;
   }
-  
+  .logout-layout{
+    width: 50%;
+    margin: 10% auto;
+    text-align: center;
+  }
   .auth-form {
     flex: 1;
     display: flex;
@@ -50,12 +54,18 @@
     border-radius: 5px;
     font-size: 1em;
     background-color: #2e2e2e;
-    color: #ecf0f1;
+    color: #ffff;
     width: 100%;
   }
-  
+  #auth-input{
+    
+    color: #fff;
+  }
+  #auth-input::placeholder{
+    color: gray;
+  }
   .auth-fields input::placeholder {
-    color: #95a5a6;
+    color: #c4c4c4;
   }
   .auth-fields label{
     color: #ecf0f1;

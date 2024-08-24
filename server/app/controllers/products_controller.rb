@@ -4,16 +4,8 @@ class ProductsController < ApplicationController
 
   # GET /products
   def index
-    if params[:q].present?
-      search
-    else
-      @products = if params[:category]
-                    @seller.products.where(category: params[:category]).order(created_at: :desc)
-                  else
-                    @seller.products.order(created_at: :desc)
-                  end
-      render json: { products: @products }
-    end
+    @products = @seller.products.order(created_at: :desc)
+    render json: { products: @products }
   end
 
   # GET /products/1
@@ -49,6 +41,36 @@ class ProductsController < ApplicationController
     head :no_content
   end
 
+  # Custom Actions
+
+  # GET /products/store
+  def store
+    @store_product = Product.recent
+    render json: @store_product
+  end
+
+  # GET /products/category
+  def category
+    if params[:category]
+      @product_category = Product.by_category(params[:category])
+      render json: @product_category
+    else
+      render json: { error: 'Category not provided' }, status: :bad_request
+    end
+  end
+
+  # GET /products/search
+  def search
+    query = params[:q]
+    @products = Product.search_by_name_or_description(query)
+
+    if @products.any?
+      render json: { products: @products }
+    else
+      render json: { message: 'No products found' }, status: :not_found
+    end
+  end
+
   private
 
   def set_product
@@ -66,16 +88,5 @@ class ProductsController < ApplicationController
   def attach_image
     @product.image.attach(params[:product][:image])
     @product.update(image_url: rails_blob_url(@product.image))
-  end
-
-  def search
-    query = params[:q]
-    @products = @seller.products.where('name LIKE ? OR description LIKE ?', "%#{query}%", "%#{query}%")
-
-    if @products.any?
-      render json: { products: @products }
-    else
-      render json: { message: 'No products found' }, status: :not_found
-    end
   end
 end

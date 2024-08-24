@@ -65,7 +65,9 @@ export default function UserProfileAuth() {
                 <div className="auth-fields">
                     <label>
                         <p>Profile Image</p>
-                        <input type="file" onChange={handleFileChange} />
+                        <input type="file" onChange={handleFileChange} 
+                        id='auth-input'
+                        />
                     </label>
                     <label>
                         <p>Username</p>
@@ -75,6 +77,7 @@ export default function UserProfileAuth() {
                             placeholder='john doe'
                             value={profileInput.username}
                             onChange={handleStateChange}
+                            id='auth-input'
                         />
                     </label>
                     <label>
@@ -85,6 +88,7 @@ export default function UserProfileAuth() {
                             placeholder='123 456 78'
                             value={profileInput.phone_number}
                             onChange={handleStateChange}
+                            id='auth-input'
                         />
                     </label>
                     <button onClick={handleProfilePost} className='auth-submit-btn'>Submit</button>

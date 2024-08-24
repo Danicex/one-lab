@@ -21,6 +21,9 @@ class ProfilesController < ApplicationController
       if params[:profile][:image].present?
         attach_image
       end
+      if params[:profile][:banner].present?
+        attach_banner
+      end
       render json: @profile, status: :created
     else
       render json: @profile.errors, status: :unprocessable_entity
@@ -33,10 +36,15 @@ class ProfilesController < ApplicationController
       if params[:profile][:image].present?
         attach_image
       end
+      if params[:profile][:banner].present?
+        attach_banner
+      end
+
       render json: @profile
     else
       render json: @profile.errors, status: :unprocessable_entity
     end
+
   end
 
   # DELETE /profiles/1
@@ -57,11 +65,15 @@ class ProfilesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def profile_params
-    params.require(:profile).permit(:fullname, :phone_number, :address, :bank_name, :account_number, :bank_code, :currency, :seller_id, :description, :store_name)
+    params.require(:profile).permit(:fullname, :phone_number, :address, :bank_name, :account_number, :bank_code, :currency, :seller_id, :description, :store_name,  :country, :website, :social)
   end
 
   def attach_image
     @profile.image.attach(params[:profile][:image])
     @profile.update(image_url: url_for(@profile.image))
+  end
+  def attach_banner
+    @profile.banner.attach(params[:profile][:banner])
+    @profile.update(banner_url: url_for(@profile.banner))
   end
 end

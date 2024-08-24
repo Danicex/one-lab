@@ -9,11 +9,9 @@ export default function Sportswear() {
 
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products`,
-      {params: {category:'sportswear'} }
-    )
+    axios.get(`http://localhost:3000/products/category?category=sportswear`)
     .then(res => {
-      setProductData9(res.data.products)
+      setProductData9(res.data)
     }).catch(err => {
       console.log(err)
     })

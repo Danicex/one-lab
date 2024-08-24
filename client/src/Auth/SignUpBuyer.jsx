@@ -30,18 +30,21 @@ const handleSubmit = (e)=>{
             placeholder="Email"
             onChange={(e) => setUserEmail(e.target.value)}
             value={userEmail}
+            id='auth-input'
           />
           <input
             type="password"
             onChange={(e) => setUserPassword(e.target.value)}
             value={userPassword}
             placeholder="Password"
+            id='auth-input'
           />
           <input
             type="password"
             onChange={(e) => setUserComPassword(e.target.value)}
             value={userComPassword}
             placeholder="Confirm Password"
+            id='auth-input'
           />
           <button onClick={handleSubmit} className="auth-submit-btn">Sign up</button>
         </div>

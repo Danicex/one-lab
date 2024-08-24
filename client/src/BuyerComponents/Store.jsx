@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,   useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CiMenuBurger } from "react-icons/ci";
 import All from './RenderComponents/All';
@@ -26,14 +26,23 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
+import  {AuthContext} from '../Auth/AuthContext'
+import { FaToggleOn, FaToggleOff } from "react-icons/fa";
 
 export default function Store() {
+  const {theme, setTheme} = useContext(AuthContext)
+
   const [active, setActive] = useState(null);
   const [openNav, setOpenNav] = useState(false);
   const [query, setQuery] = useState('');
   const [searchData, setSearchData] = useState([]);
   const [searched, setSearched] = useState(false);
   const [noData, setNoData] = useState(false);
+
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   const renderComponents = () => {
     switch (active) {
@@ -93,11 +102,13 @@ export default function Store() {
           />
           <button id='search-btn' onClick={handleSearch}>Search</button>
         </div>
-        <CiMenuBurger onClick={handleOpenNav} id='icons' />
+        
+        <CiMenuBurger onClick={handleOpenNav} id='icons' className={theme === 'light' ? 'menu-light':'maenu-dark'} />
         {openNav && (
           <div className="navigationBar">
             <button className='close-nav-btn' onClick={handleOpenNav}>✖</button>
             <ul>
+            {theme === 'light' ? (<FaToggleOff id='theme-icon' onClick={toggleTheme}/>) : (<FaToggleOn onClick={toggleTheme} id='theme-icon'/>)}
              <li> <Link to={'/update_user_profile'}>update profile</Link></li>
               <li><Link to={'/buyer_transaction'}>transaction</Link></li>
               <li>top list designers</li>
@@ -138,7 +149,7 @@ export default function Store() {
         <p onClick={() => setActive('component3')} className={`category-select ${active === 'component3' ? 'active' : ''}`}>Formal</p>
         <p onClick={() => setActive('component4')} className={`category-select ${active === 'component4' ? 'active' : ''}`}>Luxury</p>
         <p onClick={() => setActive('component5')} className={`category-select ${active === 'component5' ? 'active' : ''}`}>Native</p>
-        <p onClick={() => setActive('component6')} className={`category-select ${active === 'component6' ? 'active' : ''}`}>Were</p>
+        <p onClick={() => setActive('component6')} className={`category-select ${active === 'component6' ? 'active' : ''}`}>Rear</p>
         <p onClick={() => setActive('component7')} className={`category-select ${active === 'component7' ? 'active' : ''}`}>Sporty</p>
         <p onClick={() => setActive('component8')} className={`category-select ${active === 'component8' ? 'active' : ''}`}>Vintage</p>
       </div>

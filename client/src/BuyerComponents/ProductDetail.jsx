@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FlutterwavePayment from './FlutterwavePayment';
 import { FaWallet } from "react-icons/fa";
+import { AuthContext } from '../Auth/AuthContext';
 
 export default function ProductDetail() {
     const [productData, setProductData] = useState({});
     const [sellerProfile, setSellerProfile] = useState({});
     const [count, setCount] = useState(1);
+    const [body, setBody] = useState('')
     const location = useLocation();
     const { id } = location.state || {};
     const navigate = useNavigate();
+    const {buyerId} =  useContext(AuthContext)
+    const [sellerId, setSellerId] = useState([])
 
     useEffect(() => {
         axios.get(`http://localhost:3000/products/${id}`)
             .then(res => {
                 setProductData(res.data);
-                const sellerId = res.data.seller_id;
-                axios.get(`http://localhost:3000/sellers/${sellerId}/profile`)
+                const x = res.data.seller_id
+                setSellerId(x)
+                axios.get(`http://localhost:3000/sellers/${x}/profile`)
                     .then(response => {
                         setSellerProfile(response.data);
                     })
@@ -42,6 +47,16 @@ export default function ProductDetail() {
         navigate('/view_seller_profile', { state: { id } });
     }
 
+    const handleComment =()=>{
+        const formData = new FormData()
+        formData.append('comment[user_id]', buyerId );
+        formData.append('comment[body]', body)
+        formData.append('comment[seller_id]', sellerId)
+        formData.append('comment[products_id]', id )
+        axios.post(`http://localhost:3000/comments`, formData ).then(res=> console.log(res.status))
+        .catch(err => console.log(err))
+        console.log(id)
+    }
     return (
         <div className='bg-product-detail'>
             <div className='view-product-details'>
@@ -82,8 +97,8 @@ export default function ProductDetail() {
             <div className="glass">
                 <h1>Payment Checkout</h1>
                 <div className="x">
-                    <h3>Total price: {productData.price * count}{productData.currency}</h3> 
-                    <p>Delivery in {productData.delivery_time}</p> 
+                    <h3>Total price: <span className='special-text'> {productData.price * count}{productData.currency}</span></h3> 
+                    <p>Delivery in <span style={{color:'orange'}}>{productData.delivery_time}</span></p> 
                     <span className='y'>
                         <FlutterwavePayment
                             description={productData.description}
@@ -91,11 +106,16 @@ export default function ProductDetail() {
                             name={productData.name}
                             seller_id={productData.seller_id}
                             id={productData.id}
+                            className ="pay-btn"
                         /> 
                         <FaWallet className='icon-w' />
                     </span>
                 </div>
                 <p style={{ color: '#fff' }}>Thank you for shopping with us  </p>
+
+                <textarea name="" id="" rows={10} cols={20} value={body} onChange={(e)=>setBody(e.target.value)}  placeholder='add a comment on the product you just bought'></textarea>
+                <small style={{textAlign:'end', color: '#bfbfff'}}>Your comments gives feedback to the seller </small>
+                <button onClick={handleComment}>post</button>
             </div>
         </div>
     );

@@ -27,6 +27,7 @@ const handleSubmit = (e)=>{
           onChange={(e) => setUserEmail(e.target.value)}
           value={userEmail}
           placeholder="Email"
+          id='auth-input'
         /> 
         
         <input
@@ -34,6 +35,7 @@ const handleSubmit = (e)=>{
           onChange={(e) => setUserPassword(e.target.value)}
           value={userPassword}
           placeholder="Password"
+          id='auth-input'
         />
         <button onClick={handleSubmit} className="auth-submit-btn">Login</button>
       </div>

@@ -8,11 +8,9 @@ export default function Luxury() {
   const  navigate =  useNavigate()
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products`,
-      {params: {category:'luxury_fashion'} }
-    )
+    axios.get(`http://localhost:3000/products/category?category=luxury_fashion`)
     .then(res => {
-      setProductData5(res.data.products)
+      setProductData5(res.data)
     }).catch(err => {
       console.log(err)
     })
