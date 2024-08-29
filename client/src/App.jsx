@@ -21,6 +21,7 @@ import UpdateUserProfile from './BuyerComponents/UpdateUserProfile';
 import SellerProfile from './BuyerComponents/SellerProfile';
 import BuyerTransaction from './BuyerComponents/BuyerTransaction';
 import BuyerComments from './SellerComponents/BuyerComments';
+import IndoxSeller from './BuyerComponents/IndoxSeller';
 
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route path='/view_seller_profile' element={<SellerProfile/>}/>
 
           <Route path='/dashboard' element={<ProtectedRoute><DashBoard/></ProtectedRoute>}/>
+          <Route path='/inbox' element={<ProtectedRoute><IndoxSeller/></ProtectedRoute>}/>
           <Route path='/store' element={<ProtectedRoute><Store/></ProtectedRoute>}/>
           <Route path='/update_user_profile' element={<ProtectedRoute><UpdateUserProfile/></ProtectedRoute>}/>
           <Route path='/update_product' element={<ProtectedRoute><EditProduct/></ProtectedRoute>}/>

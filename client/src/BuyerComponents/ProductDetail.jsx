@@ -114,7 +114,7 @@ export default function ProductDetail() {
                 <p style={{ color: '#fff' }}>Thank you for shopping with us  </p>
 
                 <textarea name="" id="" rows={10} cols={20} value={body} onChange={(e)=>setBody(e.target.value)}  placeholder='add a comment on the product you just bought'></textarea>
-                <small style={{textAlign:'end', color: '#bfbfff'}}>Your comments gives feedback to the seller </small>
+                <small style={{textAlign:'end', color: '#bfbfff'}} className='global-span'>Your comments gives feedback to the seller </small>
                 <button onClick={handleComment}>post</button>
             </div>
         </div>

@@ -9,9 +9,9 @@ export default function Business() {
   const  navigate =  useNavigate()
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products/category?category=Business_Attire`)
+    axios.get(`http://localhost:3000/products/category/Business_Attire`)
     .then(res => {
-      setProductData2(res.data)
+      setProductData2(res.data.products)
     }).catch(err => {
       console.log(err)
     })

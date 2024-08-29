@@ -18,15 +18,15 @@ export default function ViewProducts() {
   useEffect(() => {
     axios.get(`http://localhost:3000/sellers/${sellerId}/profile`)
       .then(response => {
-        setCurrency([response.data]);
+        setCurrency(response.data);
       })
       .catch(err => {
         console.log(err);
       });
 
-    axios.get(`http://localhost:3000/sellers/${sellerId}/products`)
+    axios.get(`http://localhost:3000/products/seller_product/${sellerId}`)
       .then(res => {
-        setProductData(res.data.products); // Access the products array from the response
+        setProductData(res.data.products); 
       })
       .catch(err => {
         console.log(err);
@@ -65,10 +65,10 @@ export default function ViewProducts() {
 
           <div className="detail-1">
             <h1>{data.name}</h1>
-            <h3>{data.price}{currency.map((sign) => (<span key={sign.id}>{sign.currency}</span>))}</h3>
-            <h4>{data.quantity} left</h4>
-            <p>{new Date(data.created_at).toLocaleDateString()}</p>
-            <p>{data.description}</p>
+            <h3><span className="global-span">Price: </span>{data.price}{currency.currency}</h3>
+            <h4> <span className="global-span">Quantity:   </span> {data.quantity} left</h4>
+            <p> <span className="global-span">Date created:</span> {new Date(data.created_at).toLocaleDateString()}</p>
+            <p>  <span className="global-span">Product description:</span> {data.description}</p>
 
           <div className="cong">
             <div className="i" >

@@ -8,6 +8,8 @@ export default function UpdateUserProfile() {
   const [profileInput, setProfileInput] = useState({
     phone_number: '',
     username: '',
+    location: '',
+    address: '',
   });
   const [fetchedImage, setFetchedImage] = useState([])
   const [image, setImage] = useState(null);

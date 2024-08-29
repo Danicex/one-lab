@@ -13,12 +13,12 @@ export default function ViewProfile() {
   useEffect(() => {
     axios.get(`http://localhost:3000/sellers/${sellerId}/profile`)
       .then(res => {
-        setProfileData([res.data]);
+        setProfileData(res.data);
       }).catch(err => {
         console.log('an error occurred', err);
       });
 
-    axios.get(`http://localhost:3000/sellers/${sellerId}/products`)
+    axios.get(`http://localhost:3000/products/seller_product/${sellerId}`)
       .then(response => {
         setProducts(response.data.products);
       }).catch(error => {
@@ -33,30 +33,30 @@ export default function ViewProfile() {
      
 
       <div className="profile-data">
-        {profileData.map((item) => (
-          <div className="profile-wrap" key={item.id}>
+       
+          <div className="profile-wrap">
 
-            <img src={item.banner_url} alt="" className='banner-profile' />
+            <img src={profileData.banner_url} alt="" className='banner-profile' />
              
             <div className="profile-section1">
-              <img src={item.image_url} alt="" className='profile-image' />
-              <h2>{item.store_name}</h2>
+              <img src={profileData.image_url} alt="" className='profile-image' />
+              <h2>{profileData.store_name}</h2>
               <h4>{sellerEmail}</h4>
-              <h5><BsTelephone id='h5-icon'/> {item.phone_number}</h5>
-              <h5><CiLocationOn id='h5-icon'/> {item.address}</h5>
+              <h5><BsTelephone id='h5-icon'/> {profileData.phone_number}</h5>
+              <h5><CiLocationOn id='h5-icon'/> {profileData.address}</h5>
               <h5 style={{color: '#7d86ff'}}>{total} products in total</h5>
              
             </div>
 
             <div className="right-profile-secrion">
               <div className="profile-section2">
-              <p>Bio: {item.description}</p>
-                <p>Currency: {item.currency}</p>
-                <p>Account number: {item.account_number}</p>
-                <p>Account name: {item.fullname}</p>
-                <p>Bank: {item.bank_name}</p>
-                <p>website <a href={item.website}>{item.website}</a></p>
-                <p>social <a href={item.social}>{item.social}</a></p>
+              <p>Bio: {profileData.description}</p>
+                <p>Currency: {profileData.currency}</p>
+                <p>Account number: {profileData.account_number}</p>
+                <p>Account name: {profileData.fullname}</p>
+                <p>Bank: {profileData.bank_name}</p>
+                <p>website <a href={profileData.website}>{profileData.website}</a></p>
+                <p>social <a href={profileData.social}>{profileData.social}</a></p>
 
               </div>
               <div className="product-section3">
@@ -67,7 +67,7 @@ export default function ViewProfile() {
 
 
           </div>
-        ))}
+       
       </div>
 
       <div className="product-wrap-profile">

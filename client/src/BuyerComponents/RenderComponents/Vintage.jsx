@@ -8,9 +8,9 @@ export default function Vintage() {
   const  navigate =  useNavigate()
 
   useEffect(()=>{
-    axios.get(`http://localhost:3000/products/category?category=vintage_fasion`)
+    axios.get(`http://localhost:3000/products/category/vintage_fasion`)
     .then(res => {
-      setProductData(res.data)
+      setProductData(res.data.products)
     }).catch(err => {
       console.log(err)
     })

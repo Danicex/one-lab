@@ -3,46 +3,41 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CiLocationOn } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 export default function SellerProfile() {
   const location = useLocation();
   const { id } = location.state || {};
   const [profileData, setProfileData] = useState([]);
   const [products, setProducts] = useState([]);
-  const [sellerEmail, setSellerEmail] = useState('');
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (id) {
+   
       axios.get(`http://localhost:3000/sellers/${id}/profile`)
         .then(response => {
-          setProfileData([response.data]);
+          setProfileData(response.data);
         })
         .catch(err => {
           console.log(err);
         });
 
-      axios.get(`http://localhost:3000/sellers/${id}`)
-        .then(user => {
-          setSellerEmail(user.data.email);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-
-      axios.get(`http://localhost:3000/sellers/${id}/products`)
+      axios.get(`http://localhost:3000/products/seller_product/${id}`)
         .then(res => {
           setProducts(res.data.products);
         })
         .catch(err => {
           console.log(err);
         });
-    }
+    
   }, [id]);
 
   const handleView = (productId) => {
     navigate('/view_product', { state: { id: productId } });
+  };
+  const handleInbox = (sellerId) => {
+    navigate('/inbox', { state: { id: sellerId } });
   };
 
   return (
@@ -50,33 +45,34 @@ export default function SellerProfile() {
      
 
     <div className="profile-data">
-      {profileData.map((item) => (
-        <div className="profile-wrap" key={item.id}>
+   
+        <div className="profile-wrap" >
 
-          <img src={item.banner_url} alt="" className='banner-profile' />
+          <img src={profileData.banner_url} alt="" className='banner-profile' />
            
           <div className="profile-section1">
-            <img src={item.image_url} alt="" className='profile-image' />
-            <h2>{item.store_name}</h2>
-            <h4>{sellerEmail}</h4>
-            <h5><BsTelephone id='h5-icon'/> {item.phone_number}</h5>
-            <h5><CiLocationOn id='h5-icon'/> {item.address}</h5>
+            <img src={profileData.image_url} alt="" className='profile-image' />
+            <h2>{profileData.store_name}</h2>
+            <h4></h4>
+            <h5><BsTelephone id='h5-icon'/> {profileData.phone_number}</h5>
+            <h5><CiLocationOn id='h5-icon'/> {profileData.address}</h5>
            
+           <button id='order-btn' onClick={()=>handleInbox(profileData.seller_id)}>message designer</button>
           </div>
 
           <div className="right-profile-secrion">
             <div className="profile-section2">
-            <p>Bio: {item.description}</p>
-              <p>Country: {item.country}</p>
-              <p>website <a href={item.website}>{item.website}</a></p>
-              <p>social <a href={item.social}>{item.social}</a></p>
+            <p>Bio: {profileData.description}</p>
+              <p>Country: {profileData.country}</p>
+              <p>website <a href={profileData.website}>{profileData.website}</a></p>
+              <p>social <a href={profileData.social}>{profileData.social}</a></p>
 <p>Ratings ⭐⭐⭐</p>
             </div>
           </div>
 
 
         </div>
-      ))}
+      
     </div>
 
     <div className="product-wrap-profile">

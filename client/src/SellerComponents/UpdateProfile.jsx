@@ -3,6 +3,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../Auth/AuthContext';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
+import { FiAlertCircle } from "react-icons/fi";
+import './ProfileStyles.css';
 
 export default function UpdateProfile() {
   const [countryValue, setCountryValue] = useState(null); 
@@ -152,10 +154,11 @@ export default function UpdateProfile() {
             />
           </label>
 
+
           <label htmlFor="website">
             <p>Website link</p>
-            <input type="text" name="website" value={profileData.website} onChange={handleStateChange} placeholder='http://example.com' />
-            <small style={{ textAlign: 'end' }}>If you don't have a website, you can create one <a href="#">here</a></small>
+            <input type="text" name="website" value={profileData.website} onChange={handleStateChange} placeholder='http://example.com' /> <br />
+            <small style={{textAlign:'end', color: '#bfbfff', fontSize: '12px',padding: '6px'}} > <FiAlertCircle /> If you don't have a website, you can create one <a href="#">here</a></small>
           </label>
 
           <label htmlFor="social">
@@ -171,21 +174,26 @@ export default function UpdateProfile() {
 
         <div className="right">
           <h3>Enter Your Banking Details for Business Transaction</h3><br />
-
-          <label htmlFor="bank_name">
-            <p>Bank name</p>
-            <input type="text" name="bank_name" value={profileData.bank_name} onChange={handleStateChange} placeholder='Bank name' />
-          </label>
-
           <label htmlFor="fullname">
             <p>Account name</p>
             <input type="text" name="fullname" value={profileData.fullname} onChange={handleStateChange} placeholder='Account name' />
           </label>
 
+<div className="form-label2">
+          <label htmlFor="bank_name">
+            <p>Bank name</p>
+            <input type="text" name="bank_name" value={profileData.bank_name} onChange={handleStateChange} placeholder='Bank name' />
+          </label>
+
+         
+
           <label htmlFor="bank_code">
             <p>Bank code</p>
             <input type="number" name="bank_code" value={profileData.bank_code} onChange={handleStateChange} placeholder='Bank code' />
           </label>
+</div>
+
+<div className="form-label2">
 
           <label htmlFor="account_number">
             <p>Account number</p>
@@ -202,6 +210,7 @@ export default function UpdateProfile() {
             <option value="USD" />
             <option value="YEN" />
           </datalist><br /><br />
+</div>
 
           <button onClick={handleSubmit}>Submit</button>
         </div>

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../Auth/AuthContext';
 import './ProfileStyles.css';
+import { FiAlertCircle } from "react-icons/fi";
 
 export default function Product() {
   const [product, setProduct] = useState({
@@ -72,7 +73,7 @@ export default function Product() {
     )}
   
     <div className="form-container">
-      <h1 className="form-title">Create Product Post</h1>
+      <h1 className="form-title">Create Product</h1>
   
       <div className="form-section">
         <div className="image-preview">
@@ -102,35 +103,47 @@ export default function Product() {
             <option value="rare_fashion" />
           </datalist>
         </label>
-        <label className="form-label">
+        <label className="form-label2">
+          <div className="k">
           <p>Price</p>
-          <input type="number" name="price" value={product.price} onChange={handleStateChange} placeholder='50.6' className="text-input" />
+          <input type="number" name="price" value={product.price} onChange={handleStateChange} placeholder='50.6' className="file-input" />
+          </div>
+
+          <div className="k">
           <p>Currency</p>
-          <input type="text" name='currency' value={product.currency} onChange={handleStateChange} placeholder='USD' className="currency-input" />
+          <input type="text" name='currency' value={product.currency} onChange={handleStateChange} placeholder='USD' className="file-input" />
           <datalist id='currency'>
             <option value="NGN" />
             <option value="USD" />
             <option value="YEN" />
             <option value="EUR" />
           </datalist>
+
+          </div>
         </label>
+
       </div>
   
       <div className="form-section">
         <label className="form-label">
           <p>Description</p>
           <textarea name="description" placeholder='Enter your product description like: size, texture, material type' value={product.description} onChange={handleStateChange} rows={10} className='textarea-input' />
+          <small style={{textAlign:'end', color: '#bfbfff', fontSize: '12px',padding: '6px'}} > <FiAlertCircle /> note that this will be the search term a buyer will use to get this  product</small>
         </label>
-        <label className="form-label">
+        <label className="form-label2">
+          <div className="k">
           <p>Delivery Date</p>
           <input type="text" name="delivery_time" value={product.delivery_time} onChange={handleStateChange} placeholder='1 week' className="text-input" />
-        </label>
-        <label className="form-label">
+          </div>
+          <div className="k">
           <p>Quantity</p>
           <input type="number" name="quantity" value={product.quantity} onChange={handleStateChange} placeholder='5' className="text-input" />
+          </div>
         </label>
+        
         <button onClick={handleSubmit} className='upload-btn'>Upload</button>
       </div>
+
     </div>
   
   </div>

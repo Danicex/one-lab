@@ -1,22 +1,17 @@
 class InboxesController < ApplicationController
   before_action :set_inbox, only: %i[ show update destroy ]
 
-  # GET /inboxes
   def index
     @inboxes = Inbox.all
-
     render json: @inboxes
   end
 
-  # GET /inboxes/1
   def show
     render json: @inbox
   end
 
-  # POST /inboxes
   def create
     @inbox = Inbox.new(inbox_params)
-
     if @inbox.save
       render json: @inbox, status: :created, location: @inbox
     else
@@ -24,7 +19,6 @@ class InboxesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /inboxes/1
   def update
     if @inbox.update(inbox_params)
       render json: @inbox
@@ -33,19 +27,26 @@ class InboxesController < ApplicationController
     end
   end
 
-  # DELETE /inboxes/1
   def destroy
     @inbox.destroy!
   end
 
+  def by_seller
+    @inboxes = Inbox.where(:seller_id).order(created_at: :desc)
+    render json: @inboxes
+  end
+  
+  def by_buyer
+    @inboxes = Inbox.where(:buyer_id).order(created_at: :desc)
+    render json: @inboxes
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_inbox
       @inbox = Inbox.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def inbox_params
-      params.require(:inbox).permit(:content)
+      params.require(:inbox).permit(:content,  :seller_id,  :buyer_id)
     end
 end

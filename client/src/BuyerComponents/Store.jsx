@@ -66,7 +66,7 @@ export default function Store() {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get(`http://localhost:3000/products/`, {
+      const res = await axios.get(`http://localhost:3000/products`, {
         params: {
           q: query
         }

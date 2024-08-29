@@ -1,18 +1,18 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show update destroy]
 
-  # GET /comments
+  
   def index
     @comments = Comment.order(created_at: :desc).map { |comment| build_comment_data(comment) }
     render json: @comments
   end
 
-  # GET /comments/1
+ 
   def show
     render json: build_comment_data(@comment)
   end
 
-  # POST /comments
+ 
   def create
     @comment = Comment.new(comment_params)
 
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /comments/1
+  
   def update
     if @comment.update(comment_params)
       render json: @comment
@@ -32,12 +32,12 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /comments/1
+ 
   def destroy
     @comment.destroy!
   end
 
-  # GET /comments/by_seller/:seller_id
+ 
   def by_seller
     if params[:seller_id].present?
       @comments = Comment.by_seller(params[:seller_id])
@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+ 
   def set_comment
     @comment = Comment.find(params[:id])
   end

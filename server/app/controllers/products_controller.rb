@@ -2,18 +2,26 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy]
   before_action :set_current_seller, only: %i[create index]
 
-  # GET /products
   def index
-    @products = @seller.products.order(created_at: :desc)
-    render json: { products: @products }
+    if params[:q].present?
+      search
+    elsif
+      @products = if params[:category]
+                    @seller.products.where(category: params[:category]).order(created_at: :desc)
+                  else
+                    @seller.products.order(created_at: :desc)
+                  end
+    else
+      @products =  Product.all
+      render json: { products: @products }
+    end
+
   end
 
-  # GET /products/1
   def show
     render json: @product
   end
 
-  # POST /products
   def create
     @product = @seller.products.build(product_params)
 
@@ -25,7 +33,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
   def update
     if @product.update(product_params)
       attach_image if params[:product][:image].present?
@@ -35,40 +42,34 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
-  def destroy
-    @product.destroy!
-    head :no_content
+  def all_products
+    @products = Product.order(created_at: :desc)
+    render json: { products: @products }
   end
 
-  # Custom Actions
-
-  # GET /products/store
-  def store
-    @store_product = Product.recent
-    render json: @store_product
+  def by_seller
+    @products = Product.where(seller_id: params[:seller_id]).order(created_at: :desc)
+    render json: { products: @products }
   end
 
-  # GET /products/category
-  def category
-    if params[:category]
-      @product_category = Product.by_category(params[:category])
-      render json: @product_category
-    else
-      render json: { error: 'Category not provided' }, status: :bad_request
-    end
+  def by_category
+    @products = Product.where(category: params[:category]).order(created_at: :desc)
+    render json: { products: @products }
   end
 
-  # GET /products/search
   def search
     query = params[:q]
-    @products = Product.search_by_name_or_description(query)
+    @products = @seller.products.where('name LIKE ? OR description LIKE ?', "%#{query}%", "%#{query}%")
 
     if @products.any?
       render json: { products: @products }
     else
       render json: { message: 'No products found' }, status: :not_found
     end
+  end
+  def destroy
+    @product.destroy!
+    head :no_content
   end
 
   private
@@ -89,4 +90,7 @@ class ProductsController < ApplicationController
     @product.image.attach(params[:product][:image])
     @product.update(image_url: rails_blob_url(@product.image))
   end
+
+  
+  
 end

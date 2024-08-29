@@ -8,9 +8,9 @@ export default function All() {
   const  navigate =  useNavigate()
 
   useEffect(() => {
-    axios.get('http://localhost:3000/products/store')
+    axios.get('http://localhost:3000/products/all')
       .then(res => {
-      setProductData1(res.data)
+      setProductData1(res.data.products)
       })
       .catch(err => {
         console.error('Error fetching products:', err);
