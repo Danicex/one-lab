@@ -36,6 +36,7 @@ const handleSubmit = (e)=>{
           value={userPassword}
           placeholder="Password"
           id='auth-input'
+          minLength={8}
         />
         <button onClick={handleSubmit} className="auth-submit-btn">Login</button>
       </div>

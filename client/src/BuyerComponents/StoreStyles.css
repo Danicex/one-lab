@@ -1,3 +1,40 @@
+.chat-content2{
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  position: absolute;
+  bottom: 10%;
+  overflow-y: scroll;
+}
+.chat-list-map{
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+  margin-top: 5%;
+  overflow-y: scroll;
+}
+.chat-list-map2{
+  list-style: none;
+  border-bottom: 2px black;
+}
+.chat-list-contact{
+  padding: 10px;
+  background: #64646462;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+.chat-list-profile{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.chat-list-date{
+  position: absolute;
+  bottom: 5%;
+  right: 2%;
+}
 .transaction-profile-img{
   width: 50px;
   height: 50px;
@@ -58,15 +95,33 @@ padding: 10px 0;
   height: 100dvh;
   display: flex;
   flex-direction: column;
- 
+ background-color: #1d1d2546;
+ color: #fff;
   margin: 0 auto;
   justify-content: space-between;
 }
+.inbox-layout2{
+  width: 50%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+ background-color: #1d1d2546;
+ color: #fff;
+  margin: 0 auto;
+}
+.back-btn{
+  position: absolute;
+  padding: 10px;
+  font-weight: bold;
+}
 #inbox-content{
-  border-radius: 10px;
+  color: #fff;
   padding: 5px;
 }
-
+.send-inbox-btn{
+  border-radius:0;
+  padding-top: 0;
+}
 .chat-input{
 width: 100%;
 display: flex;
@@ -277,9 +332,6 @@ ul li:hover{
     flex-direction: column;
     gap: 10px;
   }
-  .special-text{
-   
-  }
   .y{
     display: flex;
     gap: 10px;
@@ -315,12 +367,6 @@ ul li:hover{
     height: 100vh;
     width: 100%;
   }
-  .payment-btn{
-
-  }
-  .payment-btn:hover{
-
-  }
   .seller-profile{
     display: flex;
     gap: 10px;
@@ -338,8 +384,6 @@ ul li:hover{
   color: #ea2340;
   }
   .glass{
-
-    
     padding: 20px;
     display: flex;
    flex-direction: column;
@@ -347,9 +391,6 @@ ul li:hover{
    width: 50%;
    min-height: 100%;
    border-radius: 20px 0 0 20px;
-  }
-  .glass h1{
-    
   }
   .glass h3{
     

@@ -38,6 +38,7 @@ const handleSubmit = (e)=>{
             value={userPassword}
             placeholder="Password"
             id='auth-input'
+            minLength={8}
           />
           <input
             type="password"
@@ -45,6 +46,7 @@ const handleSubmit = (e)=>{
             value={userComPassword}
             placeholder="Confirm Password"
             id='auth-input'
+            minLength={8}
           />
           <button onClick={handleSubmit} className="auth-submit-btn">Sign up</button>
         </div>

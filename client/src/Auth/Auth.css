@@ -57,8 +57,13 @@
     color: #ffff;
     width: 100%;
   }
+  .auth-fields input:user-valid{
+    border: 1px green solid;
+  }
+  .auth-fields input:user-invalid{
+    border: 1px rgb(255, 0, 0) solid;
+  }
   #auth-input{
-    
     color: #fff;
   }
   #auth-input::placeholder{

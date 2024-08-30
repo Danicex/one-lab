@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+ get   'inboxes/buyerchat', to: 'inboxes#buyerchat'
+ get   'inboxes/sellerchat', to: 'inboxes#sellerchat'
+
+  resources :messages do
+    collection do
+       get 'buyer_message/:buyer_id', to: 'messages#buyer_message', as: 'buyer_message'
+
+      get 'seller_message/:seller_id', to: 'messages#seller_message', as: 'seller_message'
+    end
+
+  end
+
   resources :transactions do
     collection do
       get 'by_seller/:seller_id', to: 'transactions#by_seller'
@@ -28,7 +40,8 @@ Rails.application.routes.draw do
     resources :transactions
   end
 
-  resources :inboxes
+  resources :inboxes,  only: [:index, :show, :create, :update, :destroy] 
+   
   
   resources :comments   do
     collection do

@@ -47,6 +47,7 @@ export default function SignUpSeller() {
           value={userPassword}
           placeholder="Password"
           id='auth-input'
+          minLength={8}
         />
         <input
           type="password"
@@ -54,6 +55,7 @@ export default function SignUpSeller() {
           value={userComPassword}
           placeholder="Confirm Password"
           id='auth-input'
+          minLength={8}
         /> <br />
         <button onClick={handleSubmit} className="auth-submit-btn">Submit</button>
         <p className="auth-alt-option">or <Link to={'/seller_login'}>login</Link></p>

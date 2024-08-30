@@ -36,8 +36,8 @@ export default function SellerProfile() {
   const handleView = (productId) => {
     navigate('/view_product', { state: { id: productId } });
   };
-  const handleInbox = (sellerId) => {
-    navigate('/inbox', { state: { id: sellerId } });
+  const handleInbox = (id) => {
+    navigate('/inbox', { state: { id } });
   };
 
   return (

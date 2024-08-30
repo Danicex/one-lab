@@ -7,7 +7,6 @@ import Transactions from './Transactions'
 import Product from './Product'
 import ViewProducts from './ViewProducts'
 import Home from './Home'
-import UpdateProducts from './ViewProducts'
 import Analysis from './Analysis'
 import logo from '../assets/417284f8-4190-4100-b644-290850ea0742.png'
 import { FaHouse } from "react-icons/fa6";
@@ -16,12 +15,15 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { FaToggleOn, FaToggleOff } from "react-icons/fa";
 import { AuthContext } from '../Auth/AuthContext';
+import SellerChatlist from './SellerChatList'
+
 
 export default function DashBoard() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpen2, setIsOpen2] = useState(false)
   const [isOpen3, setIsOpen3] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen4, setIsOpen4] = useState(false);
   const [active, setActive] = useState(null);
   const { theme, setTheme } = useContext(AuthContext)
 
@@ -42,6 +44,9 @@ export default function DashBoard() {
   const toggleMenu1 = () => {
     setIsOpen1(!isOpen1)
   }
+  const toggleMenu4 = () => {
+    setIsOpen4(!isOpen4)
+  }
 
   const renderComponents = () => {
     switch (active) {
@@ -52,6 +57,7 @@ export default function DashBoard() {
       case 'component6': return <Transactions />;
       case 'component7': return <Analysis />;
       case 'component8': return <Home />;
+      case 'component9': return <SellerChatlist />;
       default: return <Home />;
 
     }
@@ -96,8 +102,6 @@ export default function DashBoard() {
                   <li><p onClick={() => setActive('component2')}>update profile</p></li>
                 </div>
               )}
-
-
             </ul>
             <ul className='un-ordered'>
               <div className="nav-wrap" onClick={toggleMenu2} >
@@ -107,6 +111,7 @@ export default function DashBoard() {
 
                 </div>)}
               </div>
+
               {isOpen2 && (
                 <div className="first-nav">
                   <li><p onClick={() => setActive('component3')}>create product</p></li>
@@ -116,6 +121,12 @@ export default function DashBoard() {
                 </div>
               )}
             </ul>
+           <div>
+            <h4 onClick={toggleMenu4}>✉</h4>
+              {isOpen4 &&(
+              <p onClick={()=> setActive('component9')}>messages</p>
+              )}
+            </div>
             <ul className='un-ordered'>
 
               <div className="nav-wrap" onClick={toggleMenu3} >

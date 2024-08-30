@@ -89,97 +89,102 @@ export default function Store() {
   };
 
   return (
-    <div className='store-layout'>
-      <div className="header">
-        <img src={logo} alt="" className='logo2' />
-        <div className="search">
-          <input
-            type="text"
-            id='search-input'
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder='search...'
-          />
-          <button id='search-btn' onClick={handleSearch}>Search</button>
+  
+      <div className='store-layout' >
+        <div className="header">
+          <img src={logo} alt="" className='logo2' />
+          <div className="search">
+            <input
+              type="text"
+              id='search-input'
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder='search...'
+            />
+            <button id='search-btn' onClick={handleSearch}>Search</button>
+          </div>
+          
+          <CiMenuBurger onClick={handleOpenNav} id='icons' className={theme === 'light' ? 'menu-light':'maenu-dark'} />
+          {openNav && (
+            <div className="navigationBar">
+              <button className='close-nav-btn' onClick={handleOpenNav}>✖</button>
+              <ul>
+              {theme === 'light' ? (<FaToggleOff id='theme-icon' onClick={toggleTheme}/>) : (<FaToggleOn onClick={toggleTheme} id='theme-icon'/>)}
+               <li> <Link to={'/update_user_profile'}>update profile</Link></li>
+                <li><Link to={'/buyer_transaction'}>transaction</Link></li>
+                <li><Link to={'/chat_list'}>Messages</Link></li>
+                <li>top list designers</li>
+                <li>for you</li>
+                <li>contact us</li>
+              </ul>
+              <Link to={'/logout_buyer'} className='btn-logout'> <IoIosLogOut className='icons1' /> </Link>
+            </div>
+          )}
         </div>
-        
-        <CiMenuBurger onClick={handleOpenNav} id='icons' className={theme === 'light' ? 'menu-light':'maenu-dark'} />
-        {openNav && (
-          <div className="navigationBar">
-            <button className='close-nav-btn' onClick={handleOpenNav}>✖</button>
-            <ul>
-            {theme === 'light' ? (<FaToggleOff id='theme-icon' onClick={toggleTheme}/>) : (<FaToggleOn onClick={toggleTheme} id='theme-icon'/>)}
-             <li> <Link to={'/update_user_profile'}>update profile</Link></li>
-              <li><Link to={'/buyer_transaction'}>transaction</Link></li>
-              <li>top list designers</li>
-              <li>for you</li>
-              <li>contact us</li>
-            </ul>
-            <Link to={'/logout_buyer'} className='btn-logout'> <IoIosLogOut className='icons1' /> </Link>
-          </div>
-        )}
+  
+        <div className="slider">
+          <Swiper
+            className='swiper-container'
+            modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1}
+            autoplay={{ delay: 5000 }}
+            pagination={{ clickable: true }}
+          >
+            <SwiperSlide> <img src={image1} alt="" className='fit-image' /> </SwiperSlide>
+            <SwiperSlide className='img-slide'>
+              <img src={image2} alt="" className='fit-image' />
+            </SwiperSlide>
+            <SwiperSlide className='img-slide'>
+              <img src={image3} alt="" className='fit-image' />
+            </SwiperSlide>
+            <SwiperSlide className='img-slide'>
+              <img src={image4} alt="" className='fit-image' />
+            </SwiperSlide>
+          </Swiper>
+        </div>
+  
+        <div className="categories">
+          <p onClick={() => setActive('component')} className={`category-select ${active === 'component' ? 'active' : ''}`}>All</p>
+          <p onClick={() => setActive('component1')} className={`category-select ${active === 'component1' ? 'active' : ''}`}>Business</p>
+          <p onClick={() => setActive('component2')} className={`category-select ${active === 'component2' ? 'active' : ''}`}>Casual</p>
+          <p onClick={() => setActive('component3')} className={`category-select ${active === 'component3' ? 'active' : ''}`}>Formal</p>
+          <p onClick={() => setActive('component4')} className={`category-select ${active === 'component4' ? 'active' : ''}`}>Luxury</p>
+          <p onClick={() => setActive('component5')} className={`category-select ${active === 'component5' ? 'active' : ''}`}>Native</p>
+          <p onClick={() => setActive('component6')} className={`category-select ${active === 'component6' ? 'active' : ''}`}>Rear</p>
+          <p onClick={() => setActive('component7')} className={`category-select ${active === 'component7' ? 'active' : ''}`}>Sporty</p>
+          <p onClick={() => setActive('component8')} className={`category-select ${active === 'component8' ? 'active' : ''}`}>Vintage</p>
+        </div>
+  
+        <div className="product-data-wrap">
+          {searched && noData && (
+            <div className="404-response" style={{ textAlign: 'center', padding:'20px' }}>
+              <p>No product of that kind found</p>
+              <p style={{ color: 'red' }}>Try searching with another keyword</p>
+            </div>
+          )}
+  
+          {searched && !noData && searchData.length > 0 && (
+            <div className='search-data'>
+              {searchData.map((item) => (
+                <div className="card-search-data" key={item.id}>
+                  <img src={item.image_url} alt="" />
+                  <h4>{item.name}</h4>
+                  <h3>{item.price}</h3>
+                </div>
+              ))}
+            </div>
+          )}
+  
+          {!searched && (
+            <div>
+              {renderComponents()}
+            </div>
+          )}
+        </div>
       </div>
+  
 
-      <div className="slider">
-        <Swiper
-          className='swiper-container'
-          modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-          spaceBetween={20}
-          slidesPerView={1}
-          autoplay={{ delay: 5000 }}
-          pagination={{ clickable: true }}
-        >
-          <SwiperSlide> <img src={image1} alt="" className='fit-image' /> </SwiperSlide>
-          <SwiperSlide className='img-slide'>
-            <img src={image2} alt="" className='fit-image' />
-          </SwiperSlide>
-          <SwiperSlide className='img-slide'>
-            <img src={image3} alt="" className='fit-image' />
-          </SwiperSlide>
-          <SwiperSlide className='img-slide'>
-            <img src={image4} alt="" className='fit-image' />
-          </SwiperSlide>
-        </Swiper>
-      </div>
-
-      <div className="categories">
-        <p onClick={() => setActive('component')} className={`category-select ${active === 'component' ? 'active' : ''}`}>All</p>
-        <p onClick={() => setActive('component1')} className={`category-select ${active === 'component1' ? 'active' : ''}`}>Business</p>
-        <p onClick={() => setActive('component2')} className={`category-select ${active === 'component2' ? 'active' : ''}`}>Casual</p>
-        <p onClick={() => setActive('component3')} className={`category-select ${active === 'component3' ? 'active' : ''}`}>Formal</p>
-        <p onClick={() => setActive('component4')} className={`category-select ${active === 'component4' ? 'active' : ''}`}>Luxury</p>
-        <p onClick={() => setActive('component5')} className={`category-select ${active === 'component5' ? 'active' : ''}`}>Native</p>
-        <p onClick={() => setActive('component6')} className={`category-select ${active === 'component6' ? 'active' : ''}`}>Rear</p>
-        <p onClick={() => setActive('component7')} className={`category-select ${active === 'component7' ? 'active' : ''}`}>Sporty</p>
-        <p onClick={() => setActive('component8')} className={`category-select ${active === 'component8' ? 'active' : ''}`}>Vintage</p>
-      </div>
-
-      <div className="product-data-wrap">
-        {searched && noData && (
-          <div className="404-response" style={{ textAlign: 'center', padding:'20px' }}>
-            <p>No product of that kind found</p>
-            <p style={{ color: 'red' }}>Try searching with another keyword</p>
-          </div>
-        )}
-
-        {searched && !noData && searchData.length > 0 && (
-          <div className='search-data'>
-            {searchData.map((item) => (
-              <div className="card-search-data" key={item.id}>
-                <img src={item.image_url} alt="" />
-                <h4>{item.name}</h4>
-                <h3>{item.price}</h3>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {!searched && (
-          <div>
-            {renderComponents()}
-          </div>
-        )}
-      </div>
-    </div>
+    
   );
 }

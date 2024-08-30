@@ -2,13 +2,58 @@ class InboxesController < ApplicationController
   before_action :set_inbox, only: %i[ show update destroy ]
 
   def index
-    @inboxes = Inbox.all
+    @inboxes = Inbox.order(created_at: :desc).map   do |inboxes|
+    {
+        inbox: inboxes,
+        buyer_profile: BuyerProfile.find_by(user_id: inboxes.buyer_id),
+        seller_profile: Profile.find_by(seller_id:  inboxes.seller_id)
+    }
+    end
+
     render json: @inboxes
   end
 
   def show
     render json: @inbox
   end
+
+ 
+
+#scope for individual chat for buyers
+  def buyerchat
+    @inboxes = Inbox.buyerchat( params[:buyer_id], params[:seller_id]).order(created_at:  :desc).map   do |inboxes|
+      {
+          inbox: inboxes,
+          seller_profile: Profile.find_by(seller_id:  inboxes.seller_id),
+          buyer_profile: BuyerProfile.find_by(user_id:  inboxes.buyer_id),
+      }
+    end
+    if @inboxes.any?
+      render json: @inboxes 
+      else
+        render json: { error: 'No messages found for the given seller and buyer.' }, status: :not_found
+    end
+  end
+
+
+ 
+#scope for individual seller chats
+  def sellerchat
+    @inboxes = Inbox.sellerchat(params[:seller_id], params[:buyer_id]).order(created_at:  :desc).map  do |inboxes|
+      {
+          inbox: inboxes,
+          buyer_profile: BuyerProfile.find_by(user_id: inboxes.buyer_id),
+          seller_profile: Profile.find_by(seller_id:  inboxes.seller_id) || {},
+      }
+    end
+
+    if @inboxes.any?
+      render json: @inboxes 
+      else
+        render json: { error: 'No messages found for the given seller and buyer.' }, status: :not_found
+    end
+  end
+
 
   def create
     @inbox = Inbox.new(inbox_params)
@@ -31,22 +76,13 @@ class InboxesController < ApplicationController
     @inbox.destroy!
   end
 
-  def by_seller
-    @inboxes = Inbox.where(:seller_id).order(created_at: :desc)
-    render json: @inboxes
-  end
-  
-  def by_buyer
-    @inboxes = Inbox.where(:buyer_id).order(created_at: :desc)
-    render json: @inboxes
-  end
-
   private
     def set_inbox
       @inbox = Inbox.find(params[:id])
+    
     end
 
     def inbox_params
-      params.require(:inbox).permit(:content,  :seller_id,  :buyer_id)
+      params.require(:inbox).permit(:content,  :seller_id,  :buyer_id, :buyer)
     end
 end

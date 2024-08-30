@@ -9,12 +9,11 @@ import ProtectedRoute from './ProtectedRoute';
 import DashBoard from './SellerComponents/DashBoard';
 import EditProduct from './SellerComponents/EditProduct';
 import LogoutBuyer from './Auth/LogoutBuyer';
-import Store from  './BuyerComponents/Store';
+import Store       from  './BuyerComponents/Store';
 import CreateProfile from './SellerComponents/CreateProfile';
 import ViewProfile from './SellerComponents/ViewProfile';
 import Product from './SellerComponents/Product';
 import LogoutSeller from './Auth/LogoutSeller';
-import './App.css';
 import ProductDetail from './BuyerComponents/ProductDetail';
 import UserProfileAuth from './Auth/UserProfileAuth';
 import UpdateUserProfile from './BuyerComponents/UpdateUserProfile';
@@ -22,6 +21,11 @@ import SellerProfile from './BuyerComponents/SellerProfile';
 import BuyerTransaction from './BuyerComponents/BuyerTransaction';
 import BuyerComments from './SellerComponents/BuyerComments';
 import IndoxSeller from './BuyerComponents/IndoxSeller';
+import Chatlist from './BuyerComponents/ChatList';
+import Chat from './BuyerComponents/Chat';
+import SellerChat from './SellerComponents/SellerChat';
+import SellerChatlist from './SellerComponents/SellerChatList';
+import './App.css';
 
 
 
@@ -52,6 +56,11 @@ function App() {
 
           <Route path='/buyer_transaction' element={<ProtectedRoute><BuyerTransaction/></ProtectedRoute>}/>
           <Route path='/comments' element={<ProtectedRoute><BuyerComments/></ProtectedRoute>}/>
+          <Route path='/chat_list' element={<ProtectedRoute><Chatlist/></ProtectedRoute>}/>
+          <Route path='/chats' element={<ProtectedRoute><Chat/></ProtectedRoute>}/>
+
+          <Route path='/sellerchat_list' element={<ProtectedRoute><SellerChatlist/></ProtectedRoute>}/>
+          <Route path='/sellerchats' element={<ProtectedRoute><SellerChat/></ProtectedRoute>}/>
          
           
           
