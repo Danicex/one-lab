@@ -1,5 +1,6 @@
 class InboxesController < ApplicationController
   before_action :set_inbox, only: %i[ show update destroy ]
+  before_action :scan_text, only: %i[ create update ]
 
   def index
     @inboxes = Inbox.order(created_at: :desc).map   do |inboxes|
@@ -16,6 +17,11 @@ class InboxesController < ApplicationController
   def show
     render json: @inbox
   end
+ def scan_text
+  #if any string from the flag_text is found render a flag message "  "
+  
+
+ end
 
  
 
@@ -56,19 +62,80 @@ class InboxesController < ApplicationController
 
 
   def create
-    @inbox = Inbox.new(inbox_params)
-    if @inbox.save
-      render json: @inbox, status: :created, location: @inbox
+    @flag_text = [
+      "WhatsApp",
+      "Facebook Messenger",
+      "Instagram",
+      "Snapchat",
+      "WeChat",
+      "Telegram",
+      "Viber",
+      "LINE",
+      "Signal",
+      "Discord",
+      "Twitter",
+      "X",
+      "Kik",
+      "Skype",
+      "Twitch",
+      "TikTok",
+      "Clubhouse",
+      "Slack",
+      "Microsoft Teams",
+      "iMessage",
+      "Google Chat"
+    ]
+  
+    if @flag_text.any? { |word| inbox_params[:content].include?(word) }
+    @flag_message = "Sorry, due to Onelabs policies, you can't send this message because it contains flagged text"
+    render json: { flag_message: @flag_message }, status: :unprocessable_entity
     else
-      render json: @inbox.errors, status: :unprocessable_entity
+      @inbox = Inbox.new(inbox_params)
+      if @inbox.save
+        if  params[:inbox][:file == true].present?
+          attach_file
+        end
+        render json: @inbox, status: :created, location: @inbox
+      else
+        render json: {error: @inbox.errors, flag_message: @flag_message, status: :unprocessable_entity}
+      end
     end
   end
-
+  
   def update
-    if @inbox.update(inbox_params)
-      render json: @inbox
+    @flag_text = [
+      "WhatsApp",
+      "Facebook Messenger",
+      "Instagram",
+      "Snapchat",
+      "WeChat",
+      "Telegram",
+      "Viber",
+      "LINE",
+      "Signal",
+      "Discord",
+      "Twitter",
+      "X",
+      "Kik",
+      "Skype",
+      "Twitch",
+      "TikTok",
+      "Clubhouse",
+      "Slack",
+      "Microsoft Teams",
+      "iMessage",
+      "Google Chat"
+    ]
+  
+    if @flag_text.any? { |word| inbox_params[:content].include?(word) }
+    @flag_message = "Sorry, due to Onelabs policies, you can't send this message because it contains flagged text"
+      render json: { flag_message: @flag_message }, status: :unprocessable_entity
     else
-      render json: @inbox.errors, status: :unprocessable_entity
+      if @inbox.update(inbox_params)
+        render json: @inbox
+      else
+        render json:{ error: @inbox.errors, flag_message: @flag_message, status: :unprocessable_entity}
+      end
     end
   end
 
@@ -83,6 +150,15 @@ class InboxesController < ApplicationController
     end
 
     def inbox_params
-      params.require(:inbox).permit(:content,  :seller_id,  :buyer_id, :buyer)
+      params.require(:inbox).permit(:content,  :seller_id,  :buyer_id, :buyer, :video, :image,  :audio, :file)
+    end
+
+    def attach_file
+      @inbox.image.attach(params[:inbox][:image])
+      @inbox.update(image_url: url_for(@inbox.image))
+      @inbox.video.attach(params[:inbox][:video])
+      @inbox.update(video_url: url_for(@inbox.image))
+      @inbox.audio.attach(params[:inbox][:audio])
+      @inbox.update(audio_url: url_for(@inbox.image))
     end
 end

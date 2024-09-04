@@ -63,13 +63,17 @@ export default function Product() {
       });
   };
 
+  const  closeSuc= ()=>{
+    setSuccess(false)
+  }
   return (
     <div className='product-post'>
 
     {success && (
       <div className='success'>
         <p>Product successfully created ✨🎉</p>
-      </div>
+        <p onClick={closeSuc} className='text'>✖</p>
+        </div>
     )}
   
     <div className="form-container">
@@ -128,7 +132,7 @@ export default function Product() {
         <label className="form-label">
           <p>Description</p>
           <textarea name="description" placeholder='Enter your product description like: size, texture, material type' value={product.description} onChange={handleStateChange} rows={10} className='textarea-input' />
-          <small style={{textAlign:'end', color: '#bfbfff', fontSize: '12px',padding: '6px'}} > <FiAlertCircle /> note that this will be the search term a buyer will use to get this  product</small>
+          <small style={{textAlign:'end', fontSize: '12px',padding: '6px'}} className='global-span'> <FiAlertCircle /> note that this will be the search term a buyer will use to get this  product</small>
         </label>
         <label className="form-label2">
           <div className="k">

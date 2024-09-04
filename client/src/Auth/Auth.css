@@ -111,8 +111,12 @@
     }
   
     .auth-side-img {
-      height: 200px;
-      flex: none;
+      width: 100%;
+      min-height: 100px;
+      flex: 1;
+      background-image: url('../assets/waves-8236919_1280.webp');
+      background-size: cover;
+      background-position: center;
     }
   
     .auth-form {

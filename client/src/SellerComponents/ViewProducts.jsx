@@ -45,6 +45,9 @@ export default function ViewProducts() {
         setSuccess(false);
       });
   };
+  const  closeSuc= ()=>{
+    setSuccess(false)
+  }
 
   const handleEdit = (id) => {
     navigate('/update_product', { state: { id } });
@@ -55,9 +58,10 @@ export default function ViewProducts() {
       {success && (
         <div className='success'>
           <p>Product successfully deleted</p>
+          <p onClick={closeSuc} className='text'>✖</p>
         </div>
       )}
-      <h1>Your Product List</h1>
+      <h2>Product List</h2>
       {productData.map((data) => (
 
         <div className="card" key={data.id}>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_30_205144) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_02_155845) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -84,6 +84,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_30_205144) do
     t.integer "seller_id"
     t.integer "buyer_id"
     t.boolean "buyer"
+    t.string "image_url"
+    t.string "audio_url"
+    t.string "video_url"
+    t.boolean "file"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -127,6 +131,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_30_205144) do
     t.string "website"
     t.string "social"
     t.string "banner_url"
+    t.boolean "designer"
     t.index ["seller_id"], name: "index_profiles_on_seller_id"
   end
 

@@ -63,7 +63,7 @@ export default function SellerChat() {
   return (
     <div className='inbox-layout'>
       <button  onClick={handleBack}  className='back-btn'>←—</button>
-      <h1 style={{ textAlign: 'center' }}>chats</h1>
+      <h3 style={{ textAlign: 'center', padding:'10px 0' }}>chats</h3>
 
         <div className="chat-content2">
           {chatData.map(({inbox, seller_profile, buyer_profile}) => (

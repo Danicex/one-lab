@@ -8,7 +8,7 @@ export default function SellerChatlist() {
   const { sellerId } = useContext(AuthContext);
   const navigate = useNavigate();
   const [chatData, setChatData] = useState([])
-  const [noChats,   setNoChat] = useState(null)
+  const [noChats,   setNoChat] = useState(false)
   
 
 
@@ -36,7 +36,7 @@ export default function SellerChatlist() {
   return (
     <div className='inbox-layout2'>
         <h1>your messages</h1>
-        {noChats &&(<p> No messages yet</p>)}
+        {noChats &&(<p style={{color:'gray', textAlign:'center', padding:'30px 0'}}> No messages yet</p>)}
         <ul className='chat-list-map'>
      {chatData.map(({message, buyer_profile })=>(
             <li key={message.id} className='chat-list-map2' onClick={()=>openChat(message.id, buyer_profile.user_id)}>

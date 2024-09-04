@@ -85,10 +85,10 @@ export default function Home() {
         </div>
 
         <div className="transaction">
-          <h1>transaction list</h1>
+          <h3>transaction list</h3>
         </div>
         <div className="z">
-        <h2>Buyer Comments</h2>
+        <h3>Buyer Comments</h3>
         <br />
         <div className="comments">
           <BuyerComments/>

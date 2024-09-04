@@ -28,7 +28,7 @@ export default function Vintage() {
           <img src={data.image_url} alt="" className='product-image' />
           <div className="card-section">
             <h4>{data.name}</h4>
-            <h5>{data.price}</h5><span>{data.currency}</span>
+            <p>{data.price} {data.currency}</p>
           </div>
         </div>
       ))}

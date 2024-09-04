@@ -8,6 +8,7 @@ import './ProfileStyles.css';
 
 export default function UpdateProfile() {
   const [countryValue, setCountryValue] = useState(null); 
+  const [success, setSuccess] = useState(false)
   const options = countryList().getData();
   const [profileData, setProfileData] = useState({
     fullname: '',
@@ -27,7 +28,7 @@ export default function UpdateProfile() {
   const [bannerImage, setBannerImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [preview2, setPreview2] = useState(null);
-
+  const [designer, setDesigner] = useState(false)
   useEffect(() => {
     axios.get(`http://localhost:3000/sellers/${sellerId}/profile`)
       .then(res => {
@@ -44,7 +45,8 @@ export default function UpdateProfile() {
           store_name: fetchedData.store_name,
           country: fetchedData.country,
           website: fetchedData.website,
-          social: fetchedData.social
+          social: fetchedData.social,
+          designer: fetchedData.designer
         });
         setCountryValue(options.find(option => option.label === fetchedData.country)); 
       })
@@ -95,6 +97,7 @@ export default function UpdateProfile() {
     formData.append('profile[country]', countryValue ? countryValue.label : '');
     formData.append('profile[website]', profileData.website);
     formData.append('profile[social]', profileData.social);
+    formData.append('profile[designer]', designer);
     if (image && bannerImage) {
       formData.append('profile[image]', image);
       formData.append('profile[banner]', bannerImage);
@@ -103,18 +106,31 @@ export default function UpdateProfile() {
     axios.put(`http://localhost:3000/sellers/${sellerId}/profile`, formData)
       .then(res => {
         console.log("Profile updated successfully");
+        setSuccess(true);
       })
       .catch(err => {
         console.log(err);
+        setSuccess(false);
       });
   }
 
   const handleChange = (selectedOption) => {
     setCountryValue(selectedOption);
   };
-
+  const checkDesigner =()=>{
+    setDesigner(true)
+  }
+  const  closeSuc= ()=>{
+    setSuccess(false)
+  }
   return (
     <div className="create-profile-layout">
+       {success && (
+      <div className='success'>
+        <p>Product successfully updated ✨🎉</p>
+        <p onClick={closeSuc} className='text'>✖</p>
+      </div>
+    )}
       <div className="form-section" id='form-section1'>
         <div className="left">
           <h1>Update Your Store Profile</h1>
@@ -131,6 +147,10 @@ export default function UpdateProfile() {
           <label htmlFor="store_name">
             <p>Store name</p>
             <input type="text" name="store_name" value={profileData.store_name} onChange={handleStateChange} placeholder='Store name' />
+          </label>
+          <label htmlFor="store_name">
+            <p>select if you are a designer</p>
+            <input type="checkbox" onClick={checkDesigner}/>
           </label>
 
           <label htmlFor="phone_number">

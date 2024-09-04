@@ -63,7 +63,7 @@ console.log(id);
         setChatupdate(chatupdate + 1)
 
       }).catch(err => {
-        console.log(err)
+        console.log(err.data.flag_message)
       })
   }
 

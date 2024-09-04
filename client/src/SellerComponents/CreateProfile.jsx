@@ -12,6 +12,7 @@ export default function CreateProfile() {
   const options = countryList().getData();
   const [bannerImage, setBannerImage] = useState(null);
   const [image, setImage] = useState(null);
+  const [designer, setDesigner] = useState(false)
   const [profile, setProfile] = useState({
     fullname: '',
     phoneNumber: '',
@@ -85,6 +86,7 @@ export default function CreateProfile() {
     formData.append('profile[social]', profile.social);
     formData.append('profile[website]', profile.website);
     formData.append('profile[seller_id]', sellerId);
+    formData.append('profile[designer]', designer);
     if (image) {
       formData.append('profile[image]', image);
     }
@@ -107,23 +109,25 @@ export default function CreateProfile() {
   const handleCountryChange = (selectedOption) => {
     setCountryValue(selectedOption);
   };
-
+  const checkDesigner = () => {
+    setDesigner(true)
+  }
   return (
     <div className="profile-layout2">
       <div className="auth-side-img2"></div>
       <section className="profile-form-section">
         <h1 className="form-title">Create Your Store Profile</h1>
-        
+
         <div className="profile-form-group2">
           <div className="profile-form-column">
             {currentPage === 1 && (
               <>
-              {previewImg && (
-          <img src={previewImg} style={{ width: '100px', height: '100px' }} alt="Profile Preview" />
-        )}
-        {previewBanner && (
-          <img src={previewBanner} alt="Banner Preview" style={{ width: '100px', height: '100px' }} />
-        )}
+                {previewImg && (
+                  <img src={previewImg} style={{ width: '100px', height: '100px' }} alt="Profile Preview" />
+                )}
+                {previewBanner && (
+                  <img src={previewBanner} alt="Banner Preview" style={{ width: '100px', height: '100px' }} />
+                )}
                 <label className="form-label2">
                   <p>Add Profile Image</p>
                   <input type="file" onChange={handleFileChange} id='img-space' className="file-input" />
@@ -135,6 +139,10 @@ export default function CreateProfile() {
                 <label className="form-label2">
                   <p>Store Name</p>
                   <input type="text" name="storeName" value={profile.storeName} onChange={handleChange} placeholder='Store Name' className="text-input" />
+                </label>
+                <label htmlFor="store_name">
+                  <p>select if you are a designer</p>
+                  <input type="checkbox" onClick={checkDesigner} />
                 </label>
                 <label className="form-label2">
                   <p>Phone Number</p>
@@ -168,13 +176,14 @@ export default function CreateProfile() {
                   <p>Social Media Link</p>
                   <input type="text" name="social" value={profile.social} onChange={handleChange} placeholder='@johndoe/facebook.com' />
                 </label>
-                <label className="form-label2">
-                  <p>Description</p>
+                <label className="form-label">
+                  <p>Description</p>  <br />
                   <textarea name="description" id="description" placeholder='For example: we sell rare and authentic wears' rows={10} value={profile.description} onChange={handleChange} className="textarea-input"></textarea>
                 </label>
+
                 <div className="btn-next">
-                <button onClick={moveToPrev}>Prev</button>
-                <button onClick={moveToNext}>Next</button>
+                  <button onClick={moveToPrev}>Prev</button>
+                  <button onClick={moveToNext}>Next</button>
                 </div>
               </>
             )}
@@ -207,10 +216,10 @@ export default function CreateProfile() {
                   </datalist>
                 </label>
                 <div className="btn-next">
-                <button onClick={moveToPrev}>Prev</button>
-                <button onClick={handleSubmit} className="submit-btn2">Submit</button>
+                  <button onClick={moveToPrev}>Prev</button>
+                  <button onClick={handleSubmit} className="submit-btn2">Submit</button>
                 </div>
-                
+
               </>
             )}
           </div>

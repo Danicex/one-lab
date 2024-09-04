@@ -177,7 +177,7 @@ export default function Store() {
           )}
   
           {!searched && (
-            <div>
+            <div style={{margin: '20px 0'}}>
               {renderComponents()}
             </div>
           )}

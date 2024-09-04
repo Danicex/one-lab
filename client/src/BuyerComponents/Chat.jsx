@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../Auth/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IoIosSend } from "react-icons/io";
+import { FiPaperclip } from "react-icons/fi";
 
 export default function Chat() {
   const { buyerId } = useContext(AuthContext)
@@ -13,6 +14,7 @@ export default function Chat() {
   const location = useLocation();
   const { id, seller_id } = location.state || {};
   const [buyer, setBuyer] = useState(true)
+  const [file,  setFile] = useState(false)
 
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function Chat() {
   return (
     <div className='inbox-layout'>
       <button  onClick={handleBack}  className='back-btn'>←—</button>
-      <h1 style={{ textAlign: 'center' }}>chats</h1>
+      <h3 style={{ textAlign: 'center', padding:'10px 0' }}>chats</h3>
 
         <div className="chat-content2">
           {chatData.map(({inbox, seller_profile, buyer_profile}) => (
@@ -80,6 +82,13 @@ export default function Chat() {
         </div>
 
       <div className="chat-input">
+        <label htmlFor="file_upload">
+      <FiPaperclip className='paper-clip'/>
+          <input type="file"
+          id='file_upload'
+          style={{display:'none'}} 
+          />
+        </label>
         <textarea name="" id="inbox-content" value={content} onChange={(e) => setContent(e.target.value)} placeholder='message...'/>
         <button onClick={handlePost} className='send-inbox-btn'>
           <IoIosSend style={{ fontSize: '27px' }} /></button>

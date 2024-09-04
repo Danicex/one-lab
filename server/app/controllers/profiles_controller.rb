@@ -57,7 +57,7 @@ class ProfilesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def profile_params
-    params.require(:profile).permit(:fullname, :phone_number, :address, :bank_name, :account_number, :bank_code, :currency, :seller_id, :description, :store_name)
+    params.require(:profile).permit(:fullname, :phone_number, :address, :bank_name, :account_number, :bank_code, :currency, :seller_id, :description, :store_name, :designer)
   end
 
   def attach_image
