@@ -1,7 +1,7 @@
 databases:
   - name: onelab
     databaseName: onelabdb
-    user: danielTega
+    user: Daniel Tega
     plan: free
 
 services:
