@@ -1,6 +1,6 @@
 databases:
-  - name: one_lab
-    databaseName: server_production
+  - name: onelab
+    databaseName: general_database
     user: Danicex
     plan: free
 
