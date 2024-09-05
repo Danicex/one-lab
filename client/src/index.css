@@ -1,0 +1,47 @@
+:root{
+  box-sizing: border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+*{
+  margin:0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+input{
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #6464641f;
+  border: none;
+}
+button{
+  border-radius: 5px;
+  padding: 8px;
+  background-color:#121216;
+  color: #fff
+}
+button:hover{
+  background: #ea2340;
+}
+label{
+  text-transform: capitalize;
+  font-weight: bold;
+  padding: 5px 0;
+}
+textarea{
+  padding: 5px;
+  background: #6464641f;
+}
+h1{
+  text-transform: capitalize;
+  
+}
+
+input{
+  border: 1px black solid;
+  padding: 8px;
+  width: 50%;
+}
+a{
+  text-decoration: none;
+}
