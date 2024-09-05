@@ -1,7 +1,7 @@
 databases:
   - name: onelab
     databaseName: general_database
-    user: Danicex
+    user: danicex
     plan: free
 
 services:
