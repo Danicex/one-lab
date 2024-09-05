@@ -80,6 +80,7 @@ test:
 production:
   <<: *default
   name: one_lab
+  user: Danicex
   database: server_production
   username: Danicex
   password: <%= ENV["SERVER_DATABASE_PASSWORD"] %>
