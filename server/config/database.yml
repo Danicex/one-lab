@@ -23,4 +23,4 @@ production:
   database: onelab
   username: danicex
   password: ITQLmOgq2gwLZkvLlIIu3wsueqxtbA2q
-  port: 5432
+  secret_key_base: 6dbqAFaBQ6MRk5fsAZo39JwjDm7M5g/njQOz8RrvY0P2v8C89rCvDu/Etq0A6bUdGxD7WPpX/6voJCQtHNz6ovFRJ7JfqR8jD39t9Hu0H/zLxHX4DTMIgFJHXj3NVjkst2swM+/qfoOmepkymizBVL1IHUncjORKzxPgXgHW22oy2GVIWkV4Ke/xyyxjU6TLhB82Qb79mLz1FRqAjI3sQdd5TqWAs5YnYzCwwDQpjbnYFeMUhKnSiwzxb+6EbKLwznHy9GsEf3RYDV7OasRPllzH4sdYca2Db7oxA4QP7meg62kuCIg2owFhcVcFI7M0mfrn9iSCdakn/OSRjELlSqS+j3Io8nfWq3F8bIBlskBXM9ImdKh4sSUk52uZI4mZlNCzVG7CMHuK/OxYq8vp4LgpCM0y--jPLWTHSWkb+kudWi--sIAZ4X9xUNlKsdl3S7GWiA==
